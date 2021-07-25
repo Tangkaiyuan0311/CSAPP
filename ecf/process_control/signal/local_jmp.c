@@ -1,0 +1,24 @@
+#include "wrappers.h"
+
+sigjmp_buf buf;
+
+void handler(int sig){
+	siglongjmp(buf, 1);
+}
+
+int main(){
+	if (!sigsetjmp(buf, 1)){ //also save signal context
+		Signal(SIGINT, handler);
+		Sio_puts("starting\n");
+	}
+
+	else
+		Sio_puts("restarting...\n");
+
+	while (1){
+		sleep(1);
+		Sio_puts("processing...\n");
+	}
+
+	exit(0);
+}
