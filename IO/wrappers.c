@@ -19,6 +19,37 @@ int Close(int fd) {
     return ret;
 }
 
+
+int Stat(const char* filename, struct stat* buf) {
+	int ret;
+	if((ret = stat(filename, buf)) < 0)
+		unix_error("stat error");
+	return ret;
+}
+
+int Fstat(int fd, struct stat* buf) {
+	int ret;
+    if((ret = fstat(fd, buf)) < 0)
+        unix_error("fstat error");
+    return ret;
+}
+
+DIR* Opendir(const char* name) {
+	DIR* dirp = opendir(name);
+	if (dirp == NULL)
+		unix_error("opendir error");
+	else
+		return dirp;
+}
+
+int Closedir(DIR* dirp) {
+	int ret;
+	if ((ret = closedir(dirp)) < 0)
+		unix_error("closedir error");
+	return ret;
+}
+
+
 // return: -1 on unrecoverable error, < n on EOF, n for all othercase
 ssize_t rio_readn(int fd, void* usrbuf, size_t n) {
 	size_t nleft = n; //initialization

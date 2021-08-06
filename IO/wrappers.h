@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include<errno.h>
 #include<string.h>
+#include<dirent.h>
 #define RIO_BUFSIZE 8192
 
 // struct for the internal buffer
@@ -16,8 +17,16 @@ typedef struct {
     char rio_buf[RIO_BUFSIZE]; // internal buffer
 } rio_t;
 
+void unix_error(char*);
+
 int Open(char*, int, mode_t);
 int Close(int);
+
+int Stat(const char* filename, struct stat* buf);
+int Fstat(int fd, struct stat* buf);
+
+DIR* Opendir(const char* name);
+int Closedir(DIR* dirp);
 
 ssize_t rio_readn(int fd, void* usrbuf, size_t n);
 ssize_t rio_writen(int fd, void* usrbuf, size_t n);
