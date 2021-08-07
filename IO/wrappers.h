@@ -28,6 +28,8 @@ int Fstat(int fd, struct stat* buf);
 DIR* Opendir(const char* name);
 int Closedir(DIR* dirp);
 
+int Dup2(int oldfd, int newfd);
+
 ssize_t rio_readn(int fd, void* usrbuf, size_t n);
 ssize_t rio_writen(int fd, void* usrbuf, size_t n);
 

@@ -49,6 +49,12 @@ int Closedir(DIR* dirp) {
 	return ret;
 }
 
+int Dup2(int oldfd, int newfd) {
+	int retfd;
+	if ((retfd= dup2(oldfd, newfd)) < 0)
+		unix_error("dup2 error");
+	return retfd;
+}
 
 // return: -1 on unrecoverable error, < n on EOF, n for all othercase
 ssize_t rio_readn(int fd, void* usrbuf, size_t n) {
