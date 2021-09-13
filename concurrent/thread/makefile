@@ -1,3 +1,9 @@
+race: race.c wrappers.o wrappers.h
+	gcc -o race -pthread race.c wrappers.o
+
+norace: norace.c wrappers.o wrappers.h
+	gcc -o norace -pthread norace.c wrappers.o
+
 sharing: sharing.c wrappers.o wrappers.h
 	gcc -o sharing -pthread sharing.c wrappers.o
 
